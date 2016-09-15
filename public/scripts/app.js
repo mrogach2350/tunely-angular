@@ -11,27 +11,18 @@ angular
   // the second argument is a function that defines the capacities
   // of the controller.
 
-function AlbumsIndexController () {
+AlbumsIndexController.$inject = ['$http'];
+function AlbumsIndexController ( $http ) {
   var vm = this;
   vm.newAlbum = {};
+  $http({
+    method: 'GET',
+    url: '/api/albums',
+  }).then(function successCallback(response){
+    console.log(response.data);
+    vm.albums = response.data;
+  }, function errorCallback(response){
+    console.log('Getting data is harder than it looks', response);
+  });
 
-  vm.newAlbum = {
-      name: 'Viva Hate',
-      artistName: 'Morrissey'
-  };
-
-  vm.albums = [
-    {
-      name: 'Coming Home',
-      artistName: 'Leon Bridges'
-    },
-    {
-      name: 'Are We There',
-      artistName: 'Sharon Van Etten'
-    },
-    {
-      name: 'The Queen is Dead',
-      artistName: 'The Smiths'
-    }
-  ];
 }
