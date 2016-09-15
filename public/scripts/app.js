@@ -44,10 +44,22 @@ function AlbumsIndexController ($http) {
       method: 'GET',
       url: '/api/albums/' + album._id,
     }).then(function successCallback(deletedAlbum){
-      var index = vm.albums.indexOf(deletedAlbum);
+      var index = vm.albums.indexOf(album);
       vm.albums.splice(index, 1);
     }, function errorCallback(response){
       console.log("Shit went south and this is all I got ", response);
     });
   }
+
+  vm.editAlbum = function(album){
+    $http({
+      method: "PUT",
+      url: '/api/albums/' + album._id,
+      data: album
+    }).then(function successCallback(editedAlbum){
+    }, function errorCallback(response){
+      console.log("Shit went south and this is all I got ", response);
+    });
+  }
+
 }
