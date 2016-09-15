@@ -25,4 +25,17 @@ function AlbumsIndexController ( $http ) {
     console.log('Getting data is harder than it looks', response);
   });
 
+  vm.createAlbum = function (){
+    $http({
+      method: 'POST',
+      url: '/api/albums',
+      data: vm.newAlbum
+    }).then(function successCallback(response){
+      console.log(response.data);
+      vm.albums.push(response.data);
+    }, function errorCallback(response){
+      console.log('Getting data is harder than it looks', response);
+    });
+  }
+
 }
